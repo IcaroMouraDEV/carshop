@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from 'express';
-import ICar from '../Interfaces/ICar';
 import CarService from '../Services/CarService';
 
 export default class CarController {
@@ -17,19 +16,37 @@ export default class CarController {
 
   async create() {
     try {
-      const car: ICar = {
-        model: this.req.body.model,
-        year: this.req.body.year,
-        color: this.req.body.color,
-        status: this.req.body.status,
-        buyValue: this.req.body.buyValue,
-        doorsQty: this.req.body.doorsQty,
-        seatsQty: this.req.body.seatsQty,
-      };
-      const result = await this.service.create(car);
+      const result = await this.service.create(this.req.body);
       return this.res.status(201).json(result);
     } catch (error) {
-      return this.res.status(400).json({ error });
+      this.next(error);
+    }
+  }
+
+  async findAll() {
+    try {
+      const result = await this.service.findAll();   
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  async findById() {
+    try {
+      const result = await this.service.findById(this.req.params.id);
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
+
+  async update() {
+    try {
+      const result = await this.service.update(this.req.params.id, this.req.body);
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
     }
   }
 }
