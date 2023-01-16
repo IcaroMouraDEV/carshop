@@ -10,5 +10,10 @@ router.get('/cars/:id', (req, res, next) => new CarController(req, res, next).fi
 router.put('/cars/:id', (req, res, next) => new CarController(req, res, next).update());
 
 router.post('/motorcycles', (req, res, next) => new MotorcycleController(req, res, next).create());
+router.get('/motorcycles', (req, res, next) => new MotorcycleController(req, res, next).findAll());
+router.get(
+  '/motorcycles/:id',
+  (req, res, next) => new MotorcycleController(req, res, next).findById(),
+);
 
 export default router;

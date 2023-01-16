@@ -23,23 +23,23 @@ export default class MotorcycleController {
     }
   }
 
-  // async findAll() {
-  //   try {
-  //     const result = await this.service.findAll();   
-  //     return this.res.status(200).json(result);
-  //   } catch (error) {
-  //     this.next(error);
-  //   }
-  // }
+  async findAll() {
+    try {
+      const result = await this.service.findAll();   
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 
-  // async findById() {
-  //   try {
-  //     const result = await this.service.findById(this.req.params.id);
-  //     return this.res.status(200).json(result);
-  //   } catch (error) {
-  //     this.next(error);
-  //   }
-  // }
+  async findById() {
+    try {
+      const result = await this.service.findById(this.req.params.id);
+      return this.res.status(200).json(result);
+    } catch (error) {
+      this.next(error);
+    }
+  }
 
   // async update() {
   //   try {
