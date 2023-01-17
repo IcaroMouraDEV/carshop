@@ -1,4 +1,6 @@
-const carInput = {
+import ICar from '../../../src/Interfaces/ICar';
+
+const carInput: ICar = {
   model: 'Marea',
   year: 2002,
   color: 'Black',
