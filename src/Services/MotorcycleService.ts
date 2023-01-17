@@ -32,15 +32,15 @@ export default class MotorcycleService {
     return MotorcycleService.createMotorcycleDomain(result);
   }
 
-  // async update(id: string, carData: ICar) {
-  //   if (!isValidObjectId(id)) throw new Error('Invalid mongo id');
+  async update(id: string, motorcycleData: IMotorcycle) {
+    if (!isValidObjectId(id)) throw new Error('Invalid mongo id');
     
-  //   const car = await this.model.findById(id);
+    const motorcycle = await this.model.findById(id);
 
-  //   if (!car) throw new Error('Car not found');
+    if (!motorcycle) throw new Error('Motorcycle not found');
 
-  //   await this.model.update(id, carData);
-
-  //   return CarService.createCarDomain({ ...carData, id });
-  // }
+    await this.model.update(id, motorcycleData);
+        
+    return MotorcycleService.createMotorcycleDomain({ ...motorcycleData, id });
+  }
 }
