@@ -4,6 +4,9 @@ import Sinon from 'sinon';
 import CarService from '../../../src/Services/CarService';
 import { carInput, carOutput, cars } from '../Mocks/car';
 
+const idError = 'Invalid mongo id';
+const notFound = 'Car not found';
+
 describe('Car service layer', function () {
   it('should be able to create a car', async function () {
     Sinon.stub(Model, 'create').resolves(carOutput);
@@ -49,7 +52,7 @@ describe('Car service layer', function () {
       const carService = new CarService();
       await carService.findById(carOutput.id);
     } catch (err) {
-      expect((err as Error).message).to.be.equal('Car not found');
+      expect((err as Error).message).to.be.equal(notFound);
     }
   });
 
@@ -60,7 +63,7 @@ describe('Car service layer', function () {
       const carService = new CarService();
       await carService.findById('tryber_tester');
     } catch (err) {
-      expect((err as Error).message).to.be.equal('Invalid mongo id');
+      expect((err as Error).message).to.be.equal(idError);
     }
   });
   
@@ -71,7 +74,7 @@ describe('Car service layer', function () {
       const carService = new CarService();
       await carService.update(carOutput.id, carOutput);
     } catch (err) {
-      expect((err as Error).message).to.be.equal('Car not found');
+      expect((err as Error).message).to.be.equal(notFound);
     }
   });
 
@@ -82,7 +85,7 @@ describe('Car service layer', function () {
       const carService = new CarService();
       await carService.update('tryber_tester', carOutput);
     } catch (err) {
-      expect((err as Error).message).to.be.equal('Invalid mongo id');
+      expect((err as Error).message).to.be.equal(idError);
     }
   });
 

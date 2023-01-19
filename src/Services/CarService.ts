@@ -5,6 +5,8 @@ import CarModel from '../Models/CarModel';
 
 export default class CarService {
   private model = new CarModel();
+  private idError = 'Invalid mongo id';
+  private notFound = 'Car not found';
 
   private static createCarDomain(car: ICar) {
     return new Car(car);
@@ -17,11 +19,11 @@ export default class CarService {
   }
 
   async findById(id: string) {
-    if (!isValidObjectId(id)) throw new Error('Invalid mongo id');
+    if (!isValidObjectId(id)) throw new Error(this.idError);
 
     const car = await this.model.findById(id);
 
-    if (!car) throw new Error('Car not found');
+    if (!car) throw new Error(this.notFound);
 
     return CarService.createCarDomain(car);
   }
@@ -33,11 +35,11 @@ export default class CarService {
   }
 
   async update(id: string, carData: ICar) {
-    if (!isValidObjectId(id)) throw new Error('Invalid mongo id');
+    if (!isValidObjectId(id)) throw new Error(this.idError);
     
     const car = await this.model.findById(id);
 
-    if (!car) throw new Error('Car not found');
+    if (!car) throw new Error(this.notFound);
 
     await this.model.update(id, carData);
 
